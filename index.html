@@ -1,52 +1,66 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="robots" content="noindex, nofollow">
+<html lang="ko"><head>
+<meta charset="UTF-8"><meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>POP POP · CORN-TROVERSY</title>
-<meta name="description" content="POPPOP🍿 들기름김치볶음맛 팝콘! CORN-TROVERSY">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://mia-blissoo.github.io/poppop/">
+<meta name="description" content="POPPOP\U0001F37F 들기름김치볶음맛 팝콘! CORN-TROVERSY">
+<meta property="og:type" content="website"><meta property="og:url" content="https://mia-blissoo.github.io/poppop/">
 <meta property="og:title" content="POP POP · CORN-TROVERSY">
-<meta property="og:description" content="POPPOP🍿 들기름김치볶음맛 팝콘! CORN-TROVERSY">
+<meta property="og:description" content="POPPOP\U0001F37F 들기름김치볶음맛 팝콘! CORN-TROVERSY">
 <meta property="og:image" content="https://mia-blissoo.github.io/poppop/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:locale" content="ko_KR"><meta property="og:site_name" content="POP POP">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://mia-blissoo.github.io/poppop/og.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://mia-blissoo.github.io/poppop/og.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
-  :root{ --pink:#ee88d0; }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%}
-  body{ background:radial-gradient(92% 72% at 50% 44%, #f3a0da 0%, var(--pink) 62%), var(--pink);
-    min-height:100svh; display:flex; align-items:center; justify-content:center; overflow:hidden; cursor:pointer; }
-  .stage{ position:relative; width:min(88vw, 66svh); display:flex; align-items:center; justify-content:center; }
-  .stage::before{ content:""; position:absolute; inset:-12% -12%;
-    background:radial-gradient(circle at 50% 48%, rgba(255,255,255,.55), rgba(255,255,255,0) 55%);
-    opacity:0; transform:scale(.4); border-radius:50%; }
-  .stage.play::before{ animation:burst .55s ease-out .05s both; }
-  @keyframes burst{ 0%{opacity:0;transform:scale(.3)} 40%{opacity:.85;transform:scale(1.05)} 100%{opacity:0;transform:scale(1.25)} }
-  .idle{will-change:transform}
-  .stage.play .idle{ animation:breathe 3.4s ease-in-out .7s infinite; }
-  @keyframes breathe{ 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-1.2%) scale(1.012)} }
-  .pop{opacity:0;transform-origin:center 55%;will-change:transform,opacity}
-  .stage.play .pop{ animation:bam .58s cubic-bezier(.3,.9,.3,1) both; }
-  @keyframes bam{ 0%{opacity:0;transform:scale(.28) rotate(-7deg)} 55%{opacity:1;transform:scale(1.09) rotate(2.5deg)} 74%{transform:scale(.965) rotate(-1.2deg)} 88%{transform:scale(1.02) rotate(.4deg)} 100%{opacity:1;transform:scale(1) rotate(0)} }
-  .pop img{width:100%;height:auto;display:block;filter:drop-shadow(0 10px 20px rgba(120,30,90,.22));}
-  @media (prefers-reduced-motion: reduce){ .pop{opacity:1!important;transform:none!important;animation:none!important} .stage.play .idle,.stage.play::before{animation:none!important} }
-</style>
-</head>
-<body>
-  <div class="stage" id="stage">
-    <div class="idle"><div class="pop"><img src="poppop_logo.png" alt="POP POP · CORN-TROVERSY" draggable="false"></div></div>
-  </div>
+:root{--pink:#ee88d0}*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%}
+body{background:radial-gradient(92% 72% at 50% 44%, #f3a0da 0%, var(--pink) 62%), var(--pink);min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer}
+.stage{position:relative;height:min(94svh, calc(94vw / 0.944));aspect-ratio:4938 / 5233;width:auto}
+.item{position:absolute;left:var(--x);top:var(--y);width:var(--w);transform:translate(-50%,-50%)}
+.item img{width:100%;height:auto;display:block;filter:drop-shadow(0 6px 12px rgba(120,30,90,.20))}
+.float{transform:translateY(0)}
+.stage.play .float{animation:floaty var(--fd,3s) ease-in-out infinite alternate;animation-delay:calc(var(--d) + .6s)}
+@keyframes floaty{from{transform:translateY(0)}to{transform:translateY(-9px)}}
+.pop{opacity:0;transform:scale(.2);transform-origin:center}
+.stage.play .pop{animation:pop .5s cubic-bezier(.34,1.62,.5,1) var(--d) forwards}
+@keyframes pop{0%{opacity:0;transform:scale(.2) rotate(-16deg)}60%{opacity:1}100%{opacity:1;transform:scale(1) rotate(0)}}
+.item.logo .pop{transform-origin:center 55%}
+.stage.play .item.logo .pop{animation:bam .56s cubic-bezier(.3,.9,.3,1.05) var(--d) both}
+@keyframes bam{0%{opacity:0;transform:scale(.3) rotate(-5deg)}55%{opacity:1;transform:scale(1.07) rotate(2deg)}76%{transform:scale(.97) rotate(-1deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
+@media (prefers-reduced-motion:reduce){.pop{opacity:1!important;transform:none!important;animation:none!important}.stage.play .float{animation:none!important}}
+</style></head><body>
+<div class="stage" id="stage"></div>
 <script>
-  const stage=document.getElementById('stage');
-  function play(){ stage.classList.remove('play'); void stage.offsetWidth; stage.classList.add('play'); }
-  window.addEventListener('load',play); stage.addEventListener('click',play);
-</script>
-</body>
-</html>
+const A="assets/",FX0=44,FW=4938,FY0=1659,FH=5233;
+const ITEMS=[
+  {src:"pk/popcon_01.svg", cx:1257, cy:2570, w:590, d:0.54, fd:2.6, z:25},
+  {src:"pk/popcon_02.svg", cx:850, cy:3026, w:918, d:0.78, fd:2.8, z:25},
+  {src:"pk/popcon_03.svg", cx:884, cy:3532, w:506, d:0.9, fd:3, z:25},
+  {src:"pk/popcon_04.svg", cx:1067, cy:4557, w:540, d:1.02, fd:3.2, z:25},
+  {src:"pk/popcon_05.svg", cx:942, cy:5848, w:584, d:1.32, fd:3.4, z:25},
+  {src:"pk/popcon_06.svg", cx:2646, cy:2559, w:500, d:0.48, fd:3.6, z:25},
+  {src:"pk/popcon_07.svg", cx:3420, cy:2931, w:765, d:0.66, fd:2.6, z:25},
+  {src:"pk/popcon_08.svg", cx:3868, cy:2575, w:693, d:0.6, fd:2.8, z:25},
+  {src:"pk/popcon_09.svg", cx:4426, cy:4034, w:703, d:0.96, fd:3, z:25},
+  {src:"pk/popcon_10.svg", cx:1065, cy:4975, w:543, d:1.14, fd:3.2, z:25},
+  {src:"pk/popcon_11.svg", cx:3885, cy:5175, w:509, d:1.2, fd:3.4, z:25},
+  {src:"pk/popcon_12.svg", cx:3284, cy:2964, w:612, d:0.72, fd:3.6, z:25},
+  {src:"pk/popcon_13.svg", cx:753, cy:3037, w:593, d:0.84, fd:2.6, z:25},
+  {src:"pk/shumon_01.svg", cx:3160, cy:2275, w:984, d:0.42, fd:2.8, z:25},
+  {src:"pk/shumon_02.svg", cx:737, cy:5182, w:1106, d:1.26, fd:3, z:25},
+  {src:"pk/shumon_03.svg", cx:4310, cy:4695, w:1065, d:1.08, fd:3.2, z:25},
+  {src:"pk/logo.svg", cx:2581, cy:4687, w:3187, d:.10, fd:4.0, z:40, logo:true},
+];
+const stage=document.getElementById('stage');
+for(const it of ITEMS){
+ const item=document.createElement('div');item.className="item"+(it.logo?" logo":"");
+ item.style.setProperty('--x',((it.cx-FX0)/FW*100)+"%");item.style.setProperty('--y',((it.cy-FY0)/FH*100)+"%");
+ item.style.setProperty('--w',(it.w/FW*100)+"%");item.style.zIndex=it.z;
+ const fl=document.createElement('div');fl.className="float";fl.style.setProperty('--d',it.d+"s");fl.style.setProperty('--fd',it.fd+"s");
+ const pop=document.createElement('div');pop.className="pop";pop.style.setProperty('--d',it.d+"s");
+ const img=document.createElement('img');img.src=A+it.src;img.alt="";img.draggable=false;
+ pop.appendChild(img);fl.appendChild(pop);item.appendChild(fl);stage.appendChild(item);
+}
+function play(){stage.classList.remove('play');void stage.offsetWidth;stage.classList.add('play')}
+window.addEventListener('load',play);stage.addEventListener('click',play);
+</script></body></html>
