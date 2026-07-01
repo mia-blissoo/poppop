@@ -4,137 +4,91 @@
 <meta charset="UTF-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>POP POP · 들기름 김치볶음맛 팝콘</title>
+<title>POP POP · CORN-TROVERSY</title>
 <meta name="description" content="POPPOP🍿 들기름김치볶음맛 팝콘! CORN-TROVERSY">
 
-<!-- Open Graph (KakaoTalk / Facebook / iMessage) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mia-blissoo.github.io/poppop/">
-<meta property="og:title" content="POP POP · 들기름 김치볶음맛 팝콘">
+<meta property="og:title" content="POP POP · CORN-TROVERSY">
 <meta property="og:description" content="POPPOP🍿 들기름김치볶음맛 팝콘! CORN-TROVERSY">
 <meta property="og:image" content="https://mia-blissoo.github.io/poppop/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="POP POP">
-
-<!-- Twitter/X -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="POP POP · 들기름 김치볶음맛 팝콘">
+<meta name="twitter:title" content="POP POP · CORN-TROVERSY">
 <meta name="twitter:description" content="POPPOP🍿 들기름김치볶음맛 팝콘! CORN-TROVERSY">
 <meta name="twitter:image" content="https://mia-blissoo.github.io/poppop/og.png">
 
-<!-- Favicon (shu popcorn) -->
-<link rel="icon" type="image/svg+xml" href="assets/shu-2.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 <style>
-  :root{ --bg-top:#d3663f; --bg-bot:#a54644; }
+  :root{ --pink:#ee88d0; }
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{height:100%}
   body{
     background:
-      radial-gradient(120% 80% at 50% 40%, rgba(255,225,150,.10), rgba(255,225,150,0) 55%),
-      linear-gradient(180deg,var(--bg-top) 0%, #b95546 48%, var(--bg-bot) 100%);
-    background-attachment:fixed;
+      radial-gradient(90% 70% at 50% 42%, #f3a0da 0%, var(--pink) 60%),
+      var(--pink);
     min-height:100svh;
     display:flex;align-items:center;justify-content:center;
     overflow:hidden;
-  }
-  /* stage framed tight to the artwork (matches package-front framing ~0.79) */
-  .stage{
-    position:relative;
-    height:min(97svh, calc(96vw / 0.806));
-    aspect-ratio:1286 / 1596;
-    width:auto;
-    container-type:inline-size;
     cursor:pointer;
   }
-  .item{ position:absolute; left:var(--x); top:var(--y); width:var(--w);
-    transform:translate(-50%,-50%); will-change:transform; }
-  .item img{ width:100%; height:auto; display:block;
-    filter:drop-shadow(0 4px 7px rgba(60,15,15,.20)); }
 
-  .float{transform:translateY(0)}
-  .stage.play .float{ animation:floaty var(--fd,3s) ease-in-out infinite alternate;
-    animation-delay:calc(var(--d) + .55s); }
-  @keyframes floaty{from{transform:translateY(0)}to{transform:translateY(-8px)}}
-
-  .pop{transform:scale(.18) rotate(var(--r,0deg));opacity:0;transform-origin:center}
-  .stage.play .pop{ animation:pop .5s cubic-bezier(.34,1.62,.5,1) var(--d) forwards; }
-  @keyframes pop{
-    0%{transform:scale(.18) rotate(calc(var(--r,0deg) - 22deg));opacity:0}
-    60%{opacity:1}
-    100%{transform:scale(1) rotate(var(--r,0deg));opacity:1}
+  .stage{
+    position:relative;
+    width:min(86vw, 62svh);      /* logo aspect ~0.756 -> fit */
+    display:flex;align-items:center;justify-content:center;
   }
+
+  /* burst flash behind the logo at the pop moment */
+  .stage::before{
+    content:"";position:absolute;inset:-12% -12%;
+    background:radial-gradient(circle at 50% 48%, rgba(255,255,255,.55), rgba(255,255,255,0) 55%);
+    opacity:0;transform:scale(.4);border-radius:50%;
+  }
+  .stage.play::before{ animation:burst .55s ease-out .05s both; }
+  @keyframes burst{
+    0%{opacity:0;transform:scale(.3)}
+    40%{opacity:.9;transform:scale(1.05)}
+    100%{opacity:0;transform:scale(1.25)}
+  }
+
+  .idle{will-change:transform}
+  .stage.play .idle{ animation:breathe 3.4s ease-in-out .7s infinite; }
+  @keyframes breathe{ 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-1.2%) scale(1.012)} }
+
+  .pop{opacity:0;transform-origin:center 55%;will-change:transform,opacity}
+  .stage.play .pop{ animation:bam .58s cubic-bezier(.3,.9,.3,1) both; }
+  @keyframes bam{
+    0%  {opacity:0; transform:scale(.28) rotate(-7deg)}
+    55% {opacity:1; transform:scale(1.09) rotate(2.5deg)}
+    74% {transform:scale(.965) rotate(-1.2deg)}
+    88% {transform:scale(1.02) rotate(.4deg)}
+    100%{opacity:1; transform:scale(1) rotate(0)}
+  }
+
+  .pop img{width:100%;height:auto;display:block;
+    filter:drop-shadow(0 10px 20px rgba(120,30,90,.22));}
+
   @media (prefers-reduced-motion: reduce){
-    .pop{opacity:1 !important;transform:scale(1) rotate(var(--r,0deg)) !important;animation:none !important}
-    .stage.play .float{animation:none !important}
+    .pop{opacity:1 !important;transform:none !important;animation:none !important}
+    .stage.play .idle,.stage.play::before{animation:none !important}
   }
 </style>
 </head>
 <body>
-  <div class="stage" id="stage"></div>
+  <div class="stage" id="stage">
+    <div class="idle"><div class="pop"><img src="poppop_logo.png" alt="POP POP · CORN-TROVERSY" draggable="false"></div></div>
+  </div>
 <script>
-const A="assets/";
-// canvas = original artwork image (1286 x 1596); positions measured directly from it
-const FX0=0, FW=1286, FY0=0, FH=1596;
-// px = measured position on the package front (center cx,cy ; width w in px). r rotation, d delay, z layer.
-const ITEMS=[
-  // --- TITLE first (center hero) ---
-  {src:"title.svg",        cx:621, cy:741,  w:663, r:0, d:.10, fd:4.0, z:20},
-  // --- kimchi base right after ---
-  {src:"kimchi_spoon.svg", cx:610, cy:1259, w:850, r:0, d:.60, fd:3.8, z:10},
-
-  // --- SHUMON (face characters) — in front of title ---
-  {src:"shu-2.svg",  cx:340,  cy:310,  w:230, r:0,  d:.76, fd:3.5, z:34},  // blush closed-eyes, top-left
-  {src:"shu-4.svg",  cx:1013, cy:721,  w:240, r:0,  d:.96, fd:3.4, z:34},  // annoyed, right-mid
-  {src:"shu-3.svg",  cx:284,  cy:780,  w:245, r:0,  d:1.00, fd:3.3, z:34}, // winking, left-mid
-  {src:"pop-11.svg", cx:974,  cy:1299, w:290, r:0,  d:1.46, fd:3.6, z:32}, // worried yellow, bottom-right
-
-  // --- plain popcorns (cascade in after title) ---
-  {src:"pop-9.svg",  cx:795,  cy:225,  w:97,  r:0,  d:.64, fd:2.8, z:30},
-  {src:"pop-13.svg", cx:658,  cy:285,  w:90,  r:0,  d:.68, fd:3.1, z:30},
-  {src:"pop-16.svg", cx:902,  cy:313,  w:150, r:0,  d:.72, fd:2.7, z:30},
-  {src:"pop-3.svg",  cx:1074, cy:495,  w:190, r:0,  d:.80, fd:3.0, z:30},
-  {src:"pop-14.svg", cx:1151, cy:592,  w:85,  r:0,  d:.84, fd:3.2, z:30},
-  {src:"pop-7.svg",  cx:985,  cy:598,  w:80,  r:0,  d:.88, fd:2.9, z:30},
-  {src:"pop-15.svg", cx:229,  cy:619,  w:195, r:0,  d:.92, fd:3.4, z:30},
-  {src:"pop-8.svg",  cx:174,  cy:867,  w:103, r:0,  d:1.04, fd:2.6, z:30},
-  {src:"pop-13.svg", cx:948,  cy:879,  w:98,  r:0,  d:1.08, fd:3.3, z:30},
-  {src:"pop-14.svg", cx:1144, cy:913,  w:62,  r:0,  d:1.12, fd:2.7, z:30},
-  {src:"pop-1.svg",  cx:1008, cy:914,  w:143, r:0,  d:1.16, fd:3.1, z:30},
-  {src:"pop-12.svg", cx:1085, cy:980,  w:140, r:0,  d:1.20, fd:3.0, z:30},
-  {src:"pop-15.svg", cx:259,  cy:1037, w:108, r:0,  d:1.24, fd:3.4, z:30},
-  {src:"pop-2.svg",  cx:1106, cy:1043, w:103, r:0,  d:1.28, fd:2.9, z:30},
-  {src:"pop-9.svg",  cx:967,  cy:1046, w:45,  r:0,  d:1.32, fd:2.8, z:30},
-  {src:"pop-13.svg", cx:1072, cy:1238, w:64,  r:0,  d:1.40, fd:3.0, z:30},
-];
-
-const stage=document.getElementById('stage');
-function build(){
-  stage.innerHTML="";
-  for(const it of ITEMS){
-    const item=document.createElement('div');
-    item.className="item";
-    item.style.setProperty('--x', ((it.cx-FX0)/FW*100)+"%");
-    item.style.setProperty('--y', ((it.cy-FY0)/FH*100)+"%");
-    item.style.setProperty('--w', (it.w/FW*100)+"%");
-    item.style.zIndex=it.z;
-    const fl=document.createElement('div'); fl.className="float";
-    fl.style.setProperty('--d',it.d+"s"); fl.style.setProperty('--fd',it.fd+"s");
-    const pop=document.createElement('div'); pop.className="pop";
-    pop.style.setProperty('--r',it.r+"deg"); pop.style.setProperty('--d',it.d+"s");
-    const img=document.createElement('img'); img.src=A+it.src; img.alt=""; img.draggable=false;
-    pop.appendChild(img); fl.appendChild(pop); item.appendChild(fl); stage.appendChild(item);
-  }
-}
-function play(){ stage.classList.remove('play'); void stage.offsetWidth; stage.classList.add('play'); }
-build();
-window.addEventListener('load', play);
-stage.addEventListener('click', play);   // click anywhere to replay
+  const stage=document.getElementById('stage');
+  function play(){ stage.classList.remove('play'); void stage.offsetWidth; stage.classList.add('play'); }
+  window.addEventListener('load', play);
+  stage.addEventListener('click', play);   // click anywhere to replay
 </script>
 </body>
 </html>
