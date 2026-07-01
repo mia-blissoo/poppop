@@ -23,52 +23,30 @@
   html,body{height:100%}
   body{ background:radial-gradient(92% 72% at 50% 44%, #f3a0da 0%, var(--pink) 62%), var(--pink);
     min-height:100svh; display:flex; align-items:center; justify-content:center; overflow:hidden; cursor:pointer; }
-  .stage{ position:relative; height:min(94svh, calc(94vw / 1.071)); aspect-ratio:5131 / 4790; width:auto; }
-  .item{ position:absolute; left:var(--x); top:var(--y); width:var(--w); transform:translate(-50%,-50%); }
-  .item img{ width:100%; height:auto; display:block; filter:drop-shadow(0 6px 12px rgba(120,30,90,.20)); }
-  .float{transform:translateY(0)}
-  .stage.play .float{ animation:floaty var(--fd,3s) ease-in-out infinite alternate; animation-delay:calc(var(--d) + .6s); }
-  @keyframes floaty{from{transform:translateY(0)}to{transform:translateY(-9px)}}
-  .pop{opacity:0;transform:scale(.2) rotate(var(--r,0deg));transform-origin:center}
-  .stage.play .pop{ animation:pop .5s cubic-bezier(.34,1.62,.5,1) var(--d) forwards; }
-  @keyframes pop{ 0%{opacity:0;transform:scale(.2) rotate(calc(var(--r,0deg) - 20deg))} 60%{opacity:1} 100%{opacity:1;transform:scale(1) rotate(var(--r,0deg))} }
-  /* logo: bigger punch */
-  .item.logo .pop{transform-origin:center 55%}
-  .stage.play .item.logo .pop{ animation:bam .56s cubic-bezier(.3,.9,.3,1.05) var(--d) both; }
-  @keyframes bam{ 0%{opacity:0;transform:scale(.3) rotate(-5deg)} 55%{opacity:1;transform:scale(1.07) rotate(2deg)} 76%{transform:scale(.97) rotate(-1deg)} 100%{opacity:1;transform:scale(1) rotate(0)} }
-  @media (prefers-reduced-motion: reduce){ .pop{opacity:1!important;transform:none!important;animation:none!important} .stage.play .float{animation:none!important} }
+  .stage{ position:relative; width:min(88vw, 66svh); display:flex; align-items:center; justify-content:center; }
+  .stage::before{ content:""; position:absolute; inset:-12% -12%;
+    background:radial-gradient(circle at 50% 48%, rgba(255,255,255,.55), rgba(255,255,255,0) 55%);
+    opacity:0; transform:scale(.4); border-radius:50%; }
+  .stage.play::before{ animation:burst .55s ease-out .05s both; }
+  @keyframes burst{ 0%{opacity:0;transform:scale(.3)} 40%{opacity:.85;transform:scale(1.05)} 100%{opacity:0;transform:scale(1.25)} }
+  .idle{will-change:transform}
+  .stage.play .idle{ animation:breathe 3.4s ease-in-out .7s infinite; }
+  @keyframes breathe{ 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-1.2%) scale(1.012)} }
+  .pop{opacity:0;transform-origin:center 55%;will-change:transform,opacity}
+  .stage.play .pop{ animation:bam .58s cubic-bezier(.3,.9,.3,1) both; }
+  @keyframes bam{ 0%{opacity:0;transform:scale(.28) rotate(-7deg)} 55%{opacity:1;transform:scale(1.09) rotate(2.5deg)} 74%{transform:scale(.965) rotate(-1.2deg)} 88%{transform:scale(1.02) rotate(.4deg)} 100%{opacity:1;transform:scale(1) rotate(0)} }
+  .pop img{width:100%;height:auto;display:block;filter:drop-shadow(0 10px 20px rgba(120,30,90,.22));}
+  @media (prefers-reduced-motion: reduce){ .pop{opacity:1!important;transform:none!important;animation:none!important} .stage.play .idle,.stage.play::before{animation:none!important} }
 </style>
 </head>
 <body>
-  <div class="stage" id="stage"></div>
+  <div class="stage" id="stage">
+    <div class="idle"><div class="pop"><img src="poppop_logo.png" alt="POP POP · CORN-TROVERSY" draggable="false"></div></div>
+  </div>
 <script>
-const A="assets/", FX0=-43, FW=5131, FY0=2048, FH=4790;
-const ITEMS=[
-  {src:"pink/pop-15.svg", cx:2644, cy:2570, w:461, r:0, d:0.450, fd:2.600, z:25},
-  {src:"pink/shu-2.svg", cx:3859, cy:2571, w:770, r:0, d:0.535, fd:2.800, z:25},
-  {src:"pink/pop-3.svg", cx:1284, cy:2582, w:682, r:0, d:0.620, fd:3, z:25},
-  {src:"pink/pop-9.svg", cx:854, cy:3008, w:995, r:0, d:0.705, fd:3.200, z:25},
-  {src:"pink/pop-13.svg", cx:880, cy:3524, w:511, r:0, d:0.790, fd:3.400, z:25},
-  {src:"pink/shu-4.svg", cx:4257, cy:4580, w:1326, r:0, d:0.875, fd:3.600, z:25},
-  {src:"pink/pop-16.svg", cx:3882, cy:5163, w:461, r:0, d:0.960, fd:2.600, z:25},
-  {src:"pink/shu-3.svg", cx:746, cy:5183, w:1243, r:0, d:1.045, fd:2.800, z:25},
-  {src:"pink/pop-7.svg", cx:939, cy:5835, w:528, r:0, d:1.130, fd:3, z:25},
-  {src:"pink/pop-11.svg", cx:4223, cy:6359, w:576, r:0, d:1.215, fd:3.200, z:25},
-  {src:"logo_main.svg", cx:2468, cy:4715, w:3055, r:0, d:.10, fd:4.0, z:40, logo:true},
-];
-const stage=document.getElementById('stage');
-for(const it of ITEMS){
-  const item=document.createElement('div'); item.className="item"+(it.logo?" logo":"");
-  item.style.setProperty('--x',((it.cx-FX0)/FW*100)+"%");
-  item.style.setProperty('--y',((it.cy-FY0)/FH*100)+"%");
-  item.style.setProperty('--w',(it.w/FW*100)+"%"); item.style.zIndex=it.z;
-  const fl=document.createElement('div'); fl.className="float"; fl.style.setProperty('--d',it.d+"s"); fl.style.setProperty('--fd',it.fd+"s");
-  const pop=document.createElement('div'); pop.className="pop"; pop.style.setProperty('--r',it.r+"deg"); pop.style.setProperty('--d',it.d+"s");
-  const img=document.createElement('img'); img.src=A+it.src; img.alt=""; img.draggable=false;
-  pop.appendChild(img); fl.appendChild(pop); item.appendChild(fl); stage.appendChild(item);
-}
-function play(){ stage.classList.remove('play'); void stage.offsetWidth; stage.classList.add('play'); }
-window.addEventListener('load',play); stage.addEventListener('click',play);
+  const stage=document.getElementById('stage');
+  function play(){ stage.classList.remove('play'); void stage.offsetWidth; stage.classList.add('play'); }
+  window.addEventListener('load',play); stage.addEventListener('click',play);
 </script>
 </body>
 </html>
