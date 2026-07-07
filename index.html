@@ -15,7 +15,7 @@
 <style>
 :root{--pink:#ee88d0}*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%}
 body{background:radial-gradient(92% 72% at 50% 44%, #f3a0da 0%, var(--pink) 62%), var(--pink);min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer}
-.stage{position:relative;height:min(94svh, calc(94vw / 0.944));aspect-ratio:4938 / 5233;width:auto}
+.stage{position:relative;height:min(94svh, calc(94vw / 0.948));aspect-ratio:4980 / 5254;width:auto}
 .item{position:absolute;left:var(--x);top:var(--y);width:var(--w);transform:translate(-50%,-50%)}
 .item img{width:100%;height:auto;display:block;filter:drop-shadow(0 6px 12px rgba(120,30,90,.20))}
 .float{transform:translateY(0)}
@@ -31,24 +31,24 @@ body{background:radial-gradient(92% 72% at 50% 44%, #f3a0da 0%, var(--pink) 62%)
 </style></head><body>
 <div class="stage" id="stage"></div>
 <script>
-const A="assets/",FX0=44,FW=4938,FY0=1659,FH=5233;
+const A="assets/",FX0=26,FW=4980,FY0=1639,FH=5254;
 const ITEMS=[
-  {src:"pk/popcon_01.svg", cx:1257, cy:2570, w:590, d:0.54, fd:2.6, z:25},
-  {src:"pk/popcon_02.svg", cx:850, cy:3026, w:918, d:0.78, fd:2.8, z:25},
-  {src:"pk/popcon_03.svg", cx:884, cy:3532, w:506, d:0.9, fd:3, z:25},
-  {src:"pk/popcon_04.svg", cx:1067, cy:4557, w:540, d:1.02, fd:3.2, z:25},
-  {src:"pk/popcon_05.svg", cx:942, cy:5848, w:584, d:1.32, fd:3.4, z:25},
-  {src:"pk/popcon_06.svg", cx:2646, cy:2559, w:500, d:0.48, fd:3.6, z:25},
-  {src:"pk/popcon_07.svg", cx:3420, cy:2931, w:765, d:0.66, fd:2.6, z:25},
-  {src:"pk/popcon_08.svg", cx:3868, cy:2575, w:693, d:0.6, fd:2.8, z:25},
-  {src:"pk/popcon_09.svg", cx:4426, cy:4034, w:703, d:0.96, fd:3, z:25},
-  {src:"pk/popcon_10.svg", cx:1065, cy:4975, w:543, d:1.14, fd:3.2, z:25},
-  {src:"pk/popcon_11.svg", cx:3885, cy:5175, w:509, d:1.2, fd:3.4, z:25},
-  {src:"pk/popcon_12.svg", cx:3284, cy:2964, w:612, d:0.72, fd:3.6, z:25},
-  {src:"pk/popcon_13.svg", cx:753, cy:3037, w:593, d:0.84, fd:2.6, z:25},
-  {src:"pk/shumon_01.svg", cx:3160, cy:2275, w:984, d:0.42, fd:2.8, z:25},
-  {src:"pk/shumon_02.svg", cx:737, cy:5182, w:1106, d:1.26, fd:3, z:25},
-  {src:"pk/shumon_03.svg", cx:4310, cy:4695, w:1065, d:1.08, fd:3.2, z:25},
+  {src:"pk/popcon_05.svg", cx:944, cy:5847, w:605, d:1.26, fd:2.6, z:25},
+  {src:"pk/popcon_11.svg", cx:3885, cy:5173, w:529, d:1.08, fd:2.8, z:25},
+  {src:"pk/popcon_06.svg", cx:2647, cy:2558, w:520, d:0.48, fd:3, z:25},
+  {src:"pk/popcon_03.svg", cx:882, cy:3532, w:505, d:0.9, fd:3.2, z:25},
+  {src:"pk/shumon_01.svg", cx:3155, cy:2273, w:1020, d:0.42, fd:3.4, z:25},
+  {src:"pk/shumon_03.svg", cx:4314, cy:4697, w:1105, d:1.02, fd:3.6, z:25},
+  {src:"pk/shumon_02.svg", cx:741, cy:5176, w:1147, d:1.14, fd:2.6, z:25},
+  {src:"pk/popcon_02.svg", cx:852, cy:3029, w:952, d:0.72, fd:2.8, z:25},
+  {src:"pk/popcon_08.svg", cx:3864, cy:2573, w:720, d:0.6, fd:3, z:25},
+  {src:"pk/popcon_10.svg", cx:3547, cy:5573, w:573, d:1.2, fd:3.2, z:25},
+  {src:"pk/popcon_04.svg", cx:3958, cy:3208, w:485, d:0.84, fd:3.4, z:25},
+  {src:"pk/popcon_01.svg", cx:1276, cy:2567, w:623, d:0.54, fd:3.6, z:25},
+  {src:"pk/popcon_13.svg", cx:2614, cy:3105, w:541, d:0.78, fd:2.6, z:25},
+  {src:"pk/popcon_09.svg", cx:4429, cy:4038, w:726, d:0.96, fd:2.8, z:25},
+  {src:"pk/popcon_12.svg", cx:4335, cy:5926, w:708, d:1.32, fd:3, z:25},
+  {src:"pk/popcon_07.svg", cx:3408, cy:2885, w:920, d:0.66, fd:3.2, z:25},
   {src:"pk/logo.svg", cx:2581, cy:4687, w:3187, d:.10, fd:4.0, z:40, logo:true},
 ];
 const stage=document.getElementById('stage');
