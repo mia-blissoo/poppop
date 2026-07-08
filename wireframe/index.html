@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POP POP</title>
+<style>
+:root{--ink:#0a0a0a;--paper:#fff;--g1:#2a2a2a;--g2:#6b6b6b;--g3:#9a9a9a;--g4:#cfcfcf;--g5:#e6e6e6;--g6:#f4f4f2;--slot:#ececea}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Helvetica Neue",-apple-system,"Apple SD Gothic Neo",Arial,sans-serif;background:#dedede;color:var(--ink);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.display{font-family:"Arial Narrow","Helvetica Neue",Arial,sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-.005em;line-height:.98}
+/* review controls (chrome, not page content) */
+.toolbar{position:sticky;top:0;z-index:60;background:#111;padding:7px 12px;display:flex;gap:10px;align-items:center}
+.storesw{margin-left:auto;display:flex;border:1px solid #fff;border-radius:2px;overflow:hidden}
+.storesw button{border:0;background:#111;color:#fff;padding:5px 10px;font-size:11px;cursor:pointer}
+.storesw button.on{background:#fff;color:#111;font-weight:700}
+.tabsbar{position:sticky;top:33px;z-index:59;background:#f6f6f4;border-bottom:1px solid var(--g4);padding:6px 12px;display:flex;gap:4px;flex-wrap:wrap}
+.tab{border:1px solid var(--g3);background:#fff;padding:4px 9px;font-size:11px;cursor:pointer;border-radius:2px;color:var(--g1)}
+.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* stage */
+.wrap{max-width:1080px;margin:16px auto;padding:0 14px}
+.frame{background:var(--paper);border:1px solid var(--ink);overflow:hidden}
+/* header */
+.mast{border-bottom:2px solid var(--ink)}
+.mast .bar{display:flex;align-items:center;gap:18px;padding:16px 26px;flex-wrap:nowrap}
+.mast .wordmark{display:flex;align-items:baseline;gap:10px;flex:none}
+.mast .word{font-size:30px;white-space:nowrap}
+.mast .tagword{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--g2);white-space:nowrap}
+.mast nav{display:flex;gap:22px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-left:6px;flex:none}
+.mast .util{margin-left:auto;display:flex;gap:13px;align-items:center;font-size:11px;letter-spacing:.04em;color:var(--g2);flex:none;white-space:nowrap}
+.storetoggle{display:inline-flex;border:1px solid var(--ink)}
+.storetoggle b{padding:3px 9px;font-size:10px;cursor:pointer;font-weight:600;letter-spacing:.1em}
+.storetoggle b.on{background:var(--ink);color:#fff}
+/* breaking ticker */
+.breaking{background:var(--ink);color:#fff;display:flex;align-items:stretch;overflow:hidden;height:32px;font-size:12px;letter-spacing:.04em}
+.breaking .lbl{background:#fff;color:var(--ink);font-weight:800;display:flex;align-items:center;padding:0 14px;letter-spacing:.14em;white-space:nowrap;text-transform:uppercase}
+.breaking .tick{display:flex;align-items:center;white-space:nowrap;animation:scroll 26s linear infinite}
+.breaking .tick span{padding:0 22px;text-transform:uppercase}
+.breaking .tick span::after{content:"\25C6";margin-left:22px;color:var(--g3);font-size:8px;vertical-align:middle}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* sections */
+.sec{padding:40px 44px}
+.sec.tight{padding:28px 44px}
+.eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--g2);font-weight:700;text-align:center}
+.divider{display:flex;align-items:center;gap:14px;margin:0 44px}
+.divider::before,.divider::after{content:"";flex:1;height:2px;background:var(--ink)}
+.divider .d{font-size:10px}
+/* hero */
+.hero{text-align:left;padding:56px 44px 44px}
+.hero .inner{max-width:940px}
+.hero h1{font-size:clamp(32px,4.9vw,54px);margin:0;word-break:keep-all;overflow-wrap:break-word}
+.hero .lead{font-size:18px;color:var(--g2);max-width:48ch;margin:18px 0 0;word-break:keep-all}
+.hero .cta{justify-content:flex-start}
+.cta{display:flex;gap:12px;justify-content:center;margin-top:26px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);padding:12px 24px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.btn.pri{background:var(--ink);color:#fff}
+.btn.sm{padding:9px 16px;font-size:11px}.btn.blk{width:100%}
+.stats{display:flex;gap:0;margin-top:38px;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.stats .s{flex:1;text-align:center;padding:18px 8px;border-right:1px solid var(--g4)}
+.stats .s:last-child{border-right:0}
+.stats .n{font-size:34px}.stats .l{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);margin-top:4px}
+/* image slots */
+.slot{background:var(--slot);border:1px solid var(--g4);display:flex;align-items:center;justify-content:center;color:var(--g3);font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+/* grids */
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--ink);border:1px solid var(--ink)}
+.g4 .cell{background:var(--paper);padding:16px;text-align:center}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.prod .name{font-size:15px;font-weight:700;margin:12px 0 2px;letter-spacing:.02em}
+.prod .price{font-size:14px;color:var(--g1)}
+.sectitle{text-align:center;margin:10px 0 4px}.sectitle h2{font-size:clamp(26px,3.4vw,38px)}
+.lead-c{text-align:center;color:var(--g2);max-width:52ch;margin:8px auto 0}
+.catname{font-size:16px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-top:12px}
+.catsub{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--g3);margin-top:3px}
+/* faq */
+.faq{max-width:760px;margin:0 auto}
+.faq .item{border-top:1px solid var(--g4);padding:18px 4px;display:flex;gap:20px}
+.faq .item:last-child{border-bottom:1px solid var(--g4)}
+.faq .q{font-size:17px;font-weight:700;flex:1}.faq .a{flex:1.1;color:var(--g2)}
+/* newsletter */
+.news{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);text-align:center;padding:34px 44px}
+.news .row{display:flex;max-width:460px;margin:16px auto 0}
+.news .inp{flex:1;border:2px solid var(--ink);border-right:0;height:46px;display:flex;align-items:center;padding:0 14px;color:var(--g3);font-size:13px;letter-spacing:.04em}
+/* footer */
+.foot{background:var(--ink);color:#cfcfcf;padding:26px 44px;font-size:11px;line-height:1.9;letter-spacing:.02em}
+.foot .links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+.foot .links a{color:#fff;text-transform:uppercase;letter-spacing:.14em;font-size:10px;text-decoration:none;border-bottom:1px solid #555;padding-bottom:2px}
+.foot b{color:#fff}
+.foot .tag{font-style:italic;color:#fff;font-size:13px;margin-bottom:14px;font-family:Georgia,serif}
+/* content atoms */
+.txt{background:var(--g5);height:9px;border-radius:1px;margin:7px 0}
+.small{font-size:12px}.xs{font-size:11px}.muted{color:var(--g2)}
+.pad{padding:36px 44px}
+h2.blk{font-size:26px;margin-bottom:18px}
+table.t{width:100%;border-collapse:collapse;font-size:14px}
+table.t th{text-align:left;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--g2);border-bottom:2px solid var(--ink);padding:8px 6px}
+table.t td{border-bottom:1px solid var(--g5);padding:14px 6px;vertical-align:middle}
+.qty{display:inline-flex;border:2px solid var(--ink)}
+.qty span{padding:7px 12px}.qty span:nth-child(2){border-left:1px solid var(--g4);border-right:1px solid var(--g4)}
+.summary{border:2px solid var(--ink);padding:18px}
+.rowb{display:flex;justify-content:space-between;padding:5px 0}
+.step{display:flex;gap:10px;justify-content:center;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--g3);margin-bottom:26px}
+.step .s.on{color:var(--ink);font-weight:700}.step i{color:var(--g4);font-style:normal}
+.field{margin:12px 0}.field label{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--g2);margin-bottom:5px}
+.inp{border:1px solid var(--g3);height:42px;display:flex;align-items:center;padding:0 12px;color:var(--g3);font-size:13px}
+.check{display:flex;gap:9px;align-items:flex-start;font-size:13px;margin:9px 0}
+.check .b{width:16px;height:16px;border:2px solid var(--ink);flex:none;margin-top:1px}.check .b.k{background:var(--ink)}
+.pay{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.pay .p{border:2px solid var(--g4);padding:10px 14px;font-size:12px;color:var(--g1);letter-spacing:.04em}.pay .p.on{border-color:var(--ink)}
+.card2{border:1px solid var(--g4);padding:20px}
+.acc{border-top:1px solid var(--g4)}.acc .h{padding:12px 2px;font-size:14px;font-weight:600;display:flex;justify-content:space-between;cursor:pointer;letter-spacing:.02em}.acc .b{padding:0 2px 14px;font-size:12px;color:var(--g2)}
+.side{width:190px;flex:none;border-right:1px solid var(--g4);padding-right:16px}
+.side .m{padding:9px 4px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--g5);color:var(--g1)}
+.side .m.on{font-weight:800;border-left:3px solid var(--ink);padding-left:9px}
+.pillx{border:1px solid var(--g2);padding:2px 9px;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.donemark{width:64px;height:64px;border:2px solid var(--ink);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:26px}
+</style></head>
+<body>
+<div class="toolbar"><div class="storesw" id="storesw">
+  <button data-s="kr" class="on">국내 · 한국어 · KRW</button>
+  <button data-s="gl">Global · English · USD</button>
+</div></div>
+<div class="tabsbar" id="tabs"></div>
+
+<div class="wrap"><div class="frame"><div id="screen"></div></div></div>
+
+<script>
+var S={store:'kr',screen:'home'};
+function isKR(){return S.store==='kr'}
+function T(ko,en){return isKR()?ko:en}
+function price(k){return isKR()? ('₩'+k.toLocaleString()) : ('$'+(k/1300).toFixed(2))}
+
+var SCREENS=[
+ ['home','스토어 홈'],['list','상품 목록'],['detail','상품 상세'],['cart','장바구니'],
+ ['auth','로그인·주문'],['checkout','결제'],['done','주문완료'],['mypage','마이페이지']
+];
+
+function slot(label,h){return '<div class="slot" style="height:'+h+'px">'+(label||'IMAGE')+'</div>'}
+function breaking(){
+  var items = isKR()
+    ? ['속보 · POP POP CORN-TROVERSY 정식 출시','스위트콘맛 신규 입고','전국 배송 시작','편을 정하세요']
+    : ['BREAKING · POP POP CORN-TROVERSY IS LIVE','SWEET CORN NOW IN STOCK','WORLDWIDE SHIPPING','PICK A SIDE'];
+  var run=items.concat(items).map(function(t){return '<span>'+t+'</span>'}).join('');
+  return '<div class="breaking"><div class="lbl">'+T('속보','Breaking')+'</div><div class="tick">'+run+'</div></div>';
+}
+function mast(){
+  return '<header class="mast"><div class="bar">'+
+    '<div class="wordmark"><span class="display word">POP POP</span><span class="tagword">Corntroversy</span></div>'+
+    '<nav><span>FLAVORS</span><span>STORY</span><span>FAQ</span></nav>'+
+    '<div class="util">'+
+      '<span class="storetoggle"><b onclick="setStore(\'kr\')" class="'+(isKR()?'on':'')+'">KR</b><b onclick="setStore(\'gl\')" class="'+(!isKR()?'on':'')+'">Global</b></span>'+
+      '<span>'+T('로그인','Sign in')+'</span><span>'+T('장바구니 (0)','Cart (0)')+'</span>'+
+    '</div></div></header>';
+}
+function foot(){
+  var kr='<div class="tag">“책임감 있게 편을 가르는 팝콘”</div>'+
+    '<div class="links"><a>이용약관</a><a>개인정보처리방침</a><a>청약철회·환불</a><a>배송정책</a></div>'+
+    '<b>상호</b> 두들두 &nbsp; <b>대표</b> — &nbsp; <b>사업자등록번호</b> — &nbsp; <b>통신판매업신고</b> 2026-경기광주-1114<br>'+
+    '<b>주소</b> — &nbsp; <b>고객센터</b> — / e-mail';
+  var gl='<div class="tag">“Popcorn, responsibly divisive”</div>'+
+    '<div class="links"><a>Terms</a><a>Privacy</a><a>Refund/Return</a><a>Shipping</a><a>Cookies</a></div>'+
+    '<b>BIBIDI PTE. LTD.</b> (Singapore) &nbsp; <b>Contact</b> — / e-mail';
+  return '<div class="foot">'+(isKR()?kr:gl)+'</div>';
+}
+function legalCheck(){
+  return '<div style="margin-top:8px;text-align:left">'+
+   '<div class="check"><span class="b k"></span><span><b>['+T('필수','Req')+']</b> '+T('개인정보 수집·이용 동의','Personal data use')+'</span></div>'+
+   '<div class="check"><span class="b k"></span><span><b>['+T('필수','Req')+']</b> '+T('개인정보 제3자 제공(택배·PG)','Third-party sharing')+'</span></div>'+
+   '<div class="check"><span class="b k"></span><span><b>['+T('필수','Req')+']</b> '+T('구매조건·결제 동의','Purchase &amp; payment terms')+'</span></div>'+
+   '<div class="check"><span class="b"></span><span><b>['+T('선택','Opt')+']</b> '+T('마케팅·뉴스레터 수신','Marketing opt-in')+'</span></div></div>';
+}
+
+/* HOME */
+function catCell(en,ko){return '<div class="cell">'+slot('',100)+'<div class="catname">'+en+'</div><div class="catsub">'+ko+'</div></div>'}
+function prodCell(name,k){return '<div class="prod">'+slot('',180)+'<div class="name">'+name+'</div><div class="price">'+price(k)+'</div>'+
+  '<div class="btn sm blk" style="margin-top:12px">'+T('장바구니 담기','Add to cart')+'</div></div>'}
+function faqBlock(){
+  var qa = isKR()
+   ? [['맛이 총 몇 개예요?','세는 걸 그만뒀어요 — 계속 새로 나오거든요.'],['이 논란, 진짜예요?','네. 가장 맛있는 종류의 논란이죠.'],
+      ['제일 맛있는 맛은?','말씀드리면 또 싸움 나서요.'],['맛을 섞어 먹어도 되나요?','되죠. 다만 순수주의자껜 설명이 좀 필요해요.']]
+   : [['How many flavors are there?','We stopped counting — new ones keep arriving.'],['Is the controversy real?','Yes. The most delicious kind.'],
+      ['What is the best flavor?','Telling you would start another argument.'],['Can I mix flavors?','You can. Purists may need an explanation.']];
+  return '<div class="faq">'+qa.map(function(x){return '<div class="item"><div class="q">'+x[0]+'</div><div class="a">'+x[1]+'</div></div>'}).join('')+'</div>';
+}
+function scrHome(){
+  return '<div>'+mast()+breaking()+
+   '<div class="hero"><div class="inner">'+
+     '<h1 class="display">'+T('지구에서 가장 많은 맛의 팝콘.<br>편을 정하세요.','The most flavored popcorn on earth.<br>Pick a side.')+'</h1>'+
+     '<p class="lead">'+T('논쟁을 하려던 게 아니라,<br>모든 맛을 만들려던 것뿐.','We didn’t set out to start arguments.<br>We set out to make every flavor.')+'</p>'+
+     '<div class="cta"><span class="btn pri">'+T('맛보러 가기 →','Taste the Drama →')+'</span><span class="btn">'+T('라인업 보기','See the lineup')+'</span></div>'+
+     '<div class="stats"><div class="s"><div class="n display">500+</div><div class="l">'+T('맛','Flavors')+'</div></div>'+
+       '<div class="s"><div class="n display">4</div><div class="l">'+T('카테고리','Categories')+'</div></div>'+
+       '<div class="s"><div class="n display">1</div><div class="l">Corntroversy</div></div></div>'+
+   '</div></div>'+
+   '<div class="divider"><span class="d">◆</span></div>'+
+   '<div class="sec"><div class="eyebrow">'+T('취향껏 고르세요','Handle with opinions')+'</div><div class="sectitle"><h2 class="display">THE LINEUP</h2></div>'+
+     '<p class="lead-c">'+T('500여 가지 맛, 4개 카테고리.','500+ flavors across four categories.')+'</p>'+
+     '<div class="g4" style="margin-top:24px">'+catCell('Sweet Talkers',T('달콤파','Sweet'))+catCell('Salty Types',T('짭짤파','Salty'))+catCell('Hot Takes',T('매운파','Spicy'))+catCell('Wildcards',T('별종','Wild'))+'</div>'+
+   '</div>'+
+   '<div class="divider"><span class="d">◆</span></div>'+
+   '<div class="sec"><div class="eyebrow">'+T('지금 판매 중','On sale now')+'</div><div class="sectitle"><h2 class="display">FLAVORS</h2></div>'+
+     '<div class="g3" style="margin-top:24px">'+prodCell(T('스위트콘맛','Sweet Corn'),1700)+prodCell(T('카라멜맛','Caramel'),1700)+prodCell(T('치즈맛','Cheddar'),1700)+'</div>'+
+   '</div>'+
+   '<div class="divider"><span class="d">◆</span></div>'+
+   '<div class="sec"><div class="eyebrow">'+T('시작은 이렇게','How it started')+'</div><div class="sectitle"><h2 class="display">THE STORY</h2></div>'+
+     '<p class="lead-c">'+T('너무 많은 맛, 그것도 일부러. 우리는 논쟁이 아니라 모든 맛을 만들고 싶었을 뿐입니다.','Too many flavors. On purpose. We didn’t want an argument — we wanted every flavor.')+'</p>'+
+     '<div style="max-width:680px;margin:20px auto 0"><div class="txt" style="width:100%"></div><div class="txt" style="width:96%"></div><div class="txt" style="width:88%"></div></div>'+
+   '</div>'+
+   '<div class="divider"><span class="d">◆</span></div>'+
+   '<div class="sec"><div class="eyebrow">'+T('자주 다투는 질문','Frequently argued')+'</div><div class="sectitle"><h2 class="display">'+T('FAQ','Frequently Argued Questions')+'</h2></div>'+
+     '<div style="margin-top:22px">'+faqBlock()+'</div></div>'+
+   '<div class="news"><div class="eyebrow">'+T('뉴스레터','Newsletter')+'</div><h2 class="display" style="font-size:28px;margin-top:8px">'+T('편을 고르고, 소식을 받으세요','Pick a side. Get the news.')+'</h2>'+
+     '<div class="row"><div class="inp">'+T('이메일 주소','Your email')+'</div><div class="btn pri">'+T('구독','Subscribe')+'</div></div></div>'+
+   foot()+'</div>';
+}
+/* LIST */
+function scrList(){
+  var names=isKR()?['스위트콘맛','카라멜맛','치즈맛','어니언맛','핫칠리맛','버터맛']:['Sweet Corn','Caramel','Cheddar','Onion','Hot Chili','Butter'];
+  var cells='';for(var i=0;i<6;i++)cells+=prodCell(names[i],1700);
+  return '<div>'+mast()+breaking()+
+   '<div class="sec"><div class="eyebrow">FLAVORS</div><div class="sectitle"><h2 class="display">'+T('전체 상품','The Lineup')+'</h2></div>'+
+     '<div style="display:flex;gap:8px;justify-content:center;margin:14px 0 6px">'+['ALL','SWEET','SALTY','HOT','WILD'].map(function(f,i){return '<span class="pillx" style="'+(i===0?'background:var(--ink);color:#fff':'')+'">'+f+'</span>'}).join('')+'</div>'+
+     '<div class="g3" style="margin-top:18px">'+cells+'</div>'+
+   '</div>'+foot()+'</div>';
+}
+/* DETAIL */
+function scrDetail(){
+  return '<div>'+mast()+breaking()+
+   '<div class="pad"><div style="display:flex;gap:34px;flex-wrap:wrap">'+
+     '<div style="flex:1;min-width:280px">'+slot('',340)+'<div style="display:flex;gap:8px;margin-top:8px">'+slot('',66)+slot('',66)+slot('',66)+'</div></div>'+
+     '<div style="flex:1;min-width:280px">'+
+       '<h1 class="display" style="font-size:34px;margin:0 0 6px">'+T('스위트콘맛 팝콘','Sweet Corn Popcorn')+'</h1>'+
+       '<div style="font-size:22px;margin:6px 0">'+price(1700)+'</div>'+
+       '<div class="muted small">POP POP · Corntroversy</div>'+
+       '<div style="border-top:1px solid var(--g4);margin:18px 0"></div>'+
+       '<div class="xs muted" style="letter-spacing:.14em;text-transform:uppercase">'+T('수량','Qty')+'</div><div class="qty" style="margin:8px 0"><span>−</span><span>1</span><span>+</span></div>'+
+       '<div style="display:flex;gap:10px;margin-top:12px"><span class="btn" style="flex:1">'+T('장바구니','Add to cart')+'</span><span class="btn pri" style="flex:1">'+T('바로 구매','Buy now')+'</span></div>'+
+       '<div style="margin-top:20px">'+
+        '<div class="acc"><div class="h">'+T('제품 정보','Product info')+'<span>+</span></div><div class="b">'+T('원재료명 · 알레르기 유발물질 · 내용량 · 유통기한 · 영양성분 · 제조원/판매원','Ingredients · Allergens · Net weight · Best-before · Nutrition · Mfr/Seller')+'</div></div>'+
+        '<div class="acc"><div class="h">'+T('배송 · 교환/환불','Shipping · Returns')+'<span>+</span></div><div class="b">'+T('배송비·배송기간 및 교환/환불 정책 안내','Shipping fees, delivery time and return policy')+'</div></div>'+
+        '<div class="acc"><div class="h">FAQ<span>+</span></div><div class="b">'+T('자주 묻는 질문을 확인하세요.','Find answers to common questions.')+'</div></div>'+
+       '</div>'+
+     '</div></div></div>'+
+   '<div class="sec"><div class="eyebrow">'+T('상세 정보','Details')+'</div>'+slot('',260)+'</div>'+
+   foot()+'</div>';
+}
+/* CART */
+function scrCart(){
+  return '<div>'+mast()+
+   '<div class="pad"><h2 class="display blk">'+T('장바구니','Cart')+'</h2>'+
+     '<table class="t"><tr><th>'+T('상품','Item')+'</th><th>'+T('수량','Qty')+'</th><th>'+T('금액','Price')+'</th><th></th></tr>'+
+      '<tr><td><div style="display:flex;gap:12px;align-items:center"><div style="width:56px">'+slot('',56)+'</div>'+T('스위트콘맛 팝콘','Sweet Corn Popcorn')+'</div></td><td><div class="qty"><span>−</span><span>2</span><span>+</span></div></td><td>'+price(3400)+'</td><td class="muted xs">'+T('삭제','Remove')+'</td></tr></table>'+
+     '<div style="display:flex;justify-content:flex-end;margin-top:20px"><div style="width:300px" class="summary">'+
+       '<div class="rowb"><span class="muted">'+T('상품금액','Subtotal')+'</span><span>'+price(3400)+'</span></div>'+
+       '<div class="rowb"><span class="muted">'+T('배송비','Shipping')+'</span><span>'+T('결제 시 계산','Calculated at checkout')+'</span></div>'+
+       '<div style="border-top:1px solid var(--g4);margin:8px 0"></div>'+
+       '<div class="btn pri blk">'+T('주문하기','Checkout')+'</div></div></div>'+
+   '</div>'+foot()+'</div>';
+}
+/* AUTH */
+function scrAuth(){
+  return '<div>'+mast()+
+   '<div class="pad"><h2 class="display blk">'+T('주문 방식 선택','Choose how to order')+'</h2>'+
+    '<div style="display:flex;gap:22px;flex-wrap:wrap">'+
+     '<div style="flex:1;min-width:280px" class="card2"><b>'+T('회원 로그인 / 회원가입','Sign in / Sign up')+'</b>'+
+       '<div class="field"><label>'+T('이메일','Email')+'</label><div class="inp">email@example.com</div></div>'+
+       '<div class="field"><label>'+T('비밀번호','Password')+'</label><div class="inp">••••••••</div></div>'+
+       '<div class="btn pri blk" style="margin-top:6px">'+T('로그인','Sign in')+'</div>'+
+       '<div class="btn blk" style="margin-top:8px">'+T('회원가입','Create account')+'</div></div>'+
+     '<div style="flex:1;min-width:280px" class="card2"><b>'+T('비회원 주문','Guest checkout')+'</b>'+
+       '<p class="muted small" style="margin-top:8px">'+T('주문번호와 연락처로 주문을 조회할 수 있습니다.','Track your order with the order number and contact.')+'</p>'+
+       '<div class="btn blk" style="margin-top:14px">'+T('비회원으로 주문','Continue as guest')+'</div></div>'+
+    '</div></div>'+foot()+'</div>';
+}
+/* CHECKOUT */
+function scrCheckout(){
+  var pay=isKR()
+   ?'<div class="pay"><div class="p on">'+T('신용/체크카드','Card')+'</div><div class="p">삼성페이</div><div class="p">네이버페이</div><div class="p">카카오페이</div><div class="p">토스</div></div>'
+   :'<div class="pay"><div class="p on">Card (Visa/Master/Amex)</div><div class="p">PayPal</div><div class="p">Apple Pay</div></div>';
+  return '<div>'+mast()+
+   '<div class="pad"><h2 class="display blk">'+T('결제','Checkout')+'</h2>'+
+    '<div class="step"><span class="s">'+T('장바구니','Cart')+'</span><i>›</i><span class="s on">'+T('주문/결제','Checkout')+'</span><i>›</i><span class="s">'+T('완료','Done')+'</span></div>'+
+    '<div style="display:flex;gap:30px;flex-wrap:wrap">'+
+     '<div style="flex:1.4;min-width:300px">'+
+       '<div class="eyebrow" style="text-align:left">'+T('배송 정보','Shipping')+'</div>'+
+       '<div class="field"><label>'+T('받는 사람','Name')+'</label><div class="inp"></div></div>'+
+       '<div class="field"><label>'+T('연락처','Phone')+'</label><div class="inp"></div></div>'+
+       '<div class="field"><label>'+T('주소','Address')+'</label><div class="inp">'+T('우편번호 검색','Postal / country')+'</div></div>'+
+       '<div class="field"><label>'+T('배송 메모','Note')+'</label><div class="inp"></div></div>'+
+       '<div style="border-top:1px solid var(--g4);margin:18px 0"></div>'+
+       '<div class="eyebrow" style="text-align:left">'+T('결제 수단','Payment')+'</div>'+pay+
+     '</div>'+
+     '<div style="flex:1;min-width:260px;max-width:320px"><div class="summary">'+
+       '<div class="eyebrow" style="text-align:left">'+T('결제 요약','Order summary')+'</div>'+
+       '<div class="rowb" style="margin-top:10px"><span class="muted">'+T('상품','Items')+'</span><span>'+price(3400)+'</span></div>'+
+       '<div class="rowb"><span class="muted">'+T('배송비','Shipping')+'</span><span>'+T('결제 시 계산','Calculated')+'</span></div>'+
+       (isKR()?'':'<div class="rowb"><span class="muted">Duties/Tax</span><span>Calculated</span></div>')+
+       '<div style="border-top:2px solid var(--ink);margin:8px 0"></div>'+
+       '<div class="rowb"><b>'+T('총 결제금액','Total')+'</b><b>'+price(3400)+'</b></div>'+
+       legalCheck()+
+       '<div class="btn pri blk" style="margin-top:12px">'+T('결제하기','Pay now')+'</div>'+
+     '</div></div></div></div>'+foot()+'</div>';
+}
+/* DONE */
+function scrDone(){
+  return '<div>'+mast()+
+   '<div class="pad" style="text-align:center;padding-top:56px;padding-bottom:56px"><div class="donemark">✓</div>'+
+     '<h2 class="display" style="font-size:30px;margin-top:16px">'+T('주문이 완료되었습니다','Order complete')+'</h2>'+
+     '<p class="muted small" style="letter-spacing:.1em">'+T('주문번호','Order no.')+' POP-2026-000123</p>'+
+     '<div class="summary" style="max-width:380px;margin:20px auto;text-align:left">'+
+       '<div class="rowb"><span class="muted">'+T('상품','Item')+'</span><span>'+T('스위트콘맛 x2','Sweet Corn x2')+'</span></div>'+
+       '<div class="rowb"><span class="muted">'+T('결제금액','Paid')+'</span><span>'+price(3400)+'</span></div></div>'+
+     '<p class="muted small">'+T('주문 확인 메일을 보내드렸습니다.','A confirmation email has been sent.')+'</p>'+
+     '<div class="cta"><span class="btn">'+T('주문 상세','Order detail')+'</span><span class="btn pri">'+T('쇼핑 계속','Continue')+'</span></div>'+
+   '</div>'+foot()+'</div>';
+}
+/* MYPAGE */
+function scrMypage(){
+  return '<div>'+mast()+
+   '<div class="pad"><h2 class="display blk">'+T('마이페이지','My Page')+'</h2>'+
+    '<div style="display:flex;gap:24px;flex-wrap:wrap">'+
+     '<div class="side"><div class="m on">'+T('주문내역','Orders')+'</div><div class="m">'+T('배송조회','Shipping')+'</div><div class="m">'+T('회원정보','Profile')+'</div></div>'+
+     '<div style="flex:1;min-width:300px"><div class="eyebrow" style="text-align:left">'+T('주문내역','Order history')+'</div>'+
+       '<table class="t" style="margin-top:10px"><tr><th>'+T('주문번호','Order')+'</th><th>'+T('날짜','Date')+'</th><th>'+T('상태','Status')+'</th><th>'+T('금액','Amount')+'</th><th></th></tr>'+
+         '<tr><td>POP-2026-000123</td><td>2026-07-30</td><td><span class="pillx">'+T('배송중','Shipping')+'</span></td><td>'+price(3400)+'</td><td class="muted xs">'+T('배송조회','Track')+'</td></tr>'+
+         '<tr><td>POP-2026-000098</td><td>2026-07-28</td><td><span class="pillx">'+T('배송완료','Delivered')+'</span></td><td>'+price(1700)+'</td><td class="muted xs">'+T('상세','View')+'</td></tr></table>'+
+     '</div></div></div>'+foot()+'</div>';
+}
+
+var RENDER={home:scrHome,list:scrList,detail:scrDetail,cart:scrCart,auth:scrAuth,checkout:scrCheckout,done:scrDone,mypage:scrMypage};
+function draw(){
+  document.getElementById('screen').innerHTML=RENDER[S.screen]();
+  Array.prototype.forEach.call(document.querySelectorAll('#tabs .tab'),function(t){t.classList.toggle('on',t.dataset.k==S.screen)});
+  Array.prototype.forEach.call(document.querySelectorAll('#storesw button'),function(b){b.classList.toggle('on',b.dataset.s==S.store)});
+}
+function setStore(s){S.store=s;draw()}
+function go(scr){S.screen=scr;draw();window.scrollTo(0,0)}
+var tabsEl=document.getElementById('tabs');
+SCREENS.forEach(function(x){var b=document.createElement('button');b.className='tab';b.dataset.k=x[0];b.textContent=x[1];b.onclick=function(){go(x[0])};tabsEl.appendChild(b)});
+document.querySelectorAll('#storesw button').forEach(function(b){b.onclick=function(){setStore(b.dataset.s)}});
+draw();
+</script>
+</body></html>
